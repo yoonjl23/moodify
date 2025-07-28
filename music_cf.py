@@ -15,7 +15,7 @@ target_users = profile_df[
     (profile_df["country"] == "United States")
 ]["user_id"].dropna().unique().tolist()
 
-print(f"🎯 대상 유저 수: {len(target_users)}")
+print(f"대상 유저 수: {len(target_users)}")
 
 # 2. 대상 사용자만 필터링해서 로그와 메타데이터 로딩
 filtered_chunks = []
@@ -42,7 +42,7 @@ for chunk in pd.read_csv(
 
 # 로그 결합
 df = pd.concat(filtered_chunks, ignore_index=True)
-print(f"📦 필터링된 로그 수: {len(df)}")
+print(f"필터링된 로그 수: {len(df)}")
 
 # 메타데이터 결합 후 중복 제거
 track_meta = pd.concat(track_meta_chunks, ignore_index=True)
@@ -95,10 +95,10 @@ def print_recommendations_with_titles(user_raw_id, top_k=5):
     top_track_indices = recommend_cf(user_raw_id, top_k=top_k)
     
     if not top_track_indices:
-        print(f"\n👤 사용자: {user_raw_id} → ❌ 해당 사용자 없음 또는 추천 불가")
+        print(f"\n사용자: {user_raw_id} → 해당 사용자 없음 또는 추천 불가")
         return
 
-    print(f"\n👤 사용자: {user_raw_id}")
+    print(f"\n사용자: {user_raw_id}")
     for rank, idx in enumerate(top_track_indices, 1):
         match = track_meta[track_meta["track_idx"] == idx]
         if not match.empty:
@@ -108,6 +108,6 @@ def print_recommendations_with_titles(user_raw_id, top_k=5):
             print(f"{rank}. 🎵 Track Index: {idx} (제목 정보 없음)")
 
 # 8. 추천 실행 (처음 5명)
-print("\n🎧 추천 결과:") 
+print("\n추천 결과:") 
 for user_id in target_users[:5]:
     print_recommendations_with_titles(user_id, top_k=5)
